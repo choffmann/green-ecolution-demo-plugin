@@ -6,9 +6,11 @@ type AuthRequest struct {
 }
 
 type RegisterRequest struct {
-	Name string      `json:"name"`
-	Path string      `json:"path"`
-	Auth AuthRequest `json:"auth"`
+	Name        string      `json:"name"`
+	Path        string      `json:"path"`
+	Version     string      `json:"version"`
+	Description string      `json:"description"`
+	Auth        AuthRequest `json:"auth"`
 }
 
 type ClientTokenResponse struct {

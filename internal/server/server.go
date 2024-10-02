@@ -55,6 +55,9 @@ func NewServer(opts ...ServerOption) *Server {
 
 func (s *Server) Run(ctx context.Context) error {
 	app := fiber.New(fiber.Config{})
+  app.Get("/", func(c *fiber.Ctx) error {
+    return c.SendString("Hello, World! This is the plugin server for " + s.cfg.plugin.Name)
+  })
   app.Mount("/", servePlugin(s.cfg.pluginFS))
 
 	go func() {

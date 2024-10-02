@@ -13,6 +13,7 @@ type PluginWorkerConfig struct {
 	host       *url.URL
 	interval   time.Duration
 	client     *http.Client
+  token      *Token
 }
 
 type PluginWorker struct {
@@ -43,6 +44,12 @@ func WithInterval(interval time.Duration) PluginWorkerOption {
 	return func(cfg *PluginWorkerConfig) {
 		cfg.interval = interval
 	}
+}
+
+func WithToken(token *Token) PluginWorkerOption {
+  return func(cfg *PluginWorkerConfig) {
+    cfg.token = token
+  }
 }
 
 func (c *PluginWorkerConfig) IsValid() bool {

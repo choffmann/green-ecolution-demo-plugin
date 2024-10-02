@@ -13,6 +13,8 @@ func (w *PluginWorker) Register(ctx context.Context, username, password string) 
 	reqBody := RegisterRequest{
 		Name: w.cfg.plugin.Name,
 		Path: w.cfg.plugin.HostPath.String(),
+    Version: w.cfg.plugin.Version,
+    Description: w.cfg.plugin.Description,
 		Auth: AuthRequest{
 			Username: username,
 			Password: password,
@@ -45,10 +47,13 @@ func (w *PluginWorker) Register(ctx context.Context, username, password string) 
 		return nil, err
 	}
 
-	return &Token{
-		AccessToken:  tokenResp.AccessToken,
-		RefreshToken: tokenResp.RefreshToken,
-	}, nil
+  token := &Token{
+    AccessToken:  tokenResp.AccessToken,
+    RefreshToken: tokenResp.RefreshToken,
+  }
+
+  w.cfg.token = token
+  return token, nil
 }
 
 func (w *PluginWorker) Heartbeat(ctx context.Context) error {
