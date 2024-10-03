@@ -58,7 +58,7 @@ func (c *PluginWorkerConfig) IsValid() bool {
 
 var defaultCfg = PluginWorkerConfig{
 	client:   http.DefaultClient,
-	interval: 500 * time.Millisecond,
+	interval: 30 * time.Second,
 }
 
 func NewPluginWorker(opts ...PluginWorkerOption) (*PluginWorker, error) {

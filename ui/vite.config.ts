@@ -1,26 +1,22 @@
-import { resolve } from "path";
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import dts from "vite-plugin-dts";
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import federation from "@originjs/vite-plugin-federation";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react(),
-    dts({
-      tsconfigPath: resolve(__dirname, "tsconfig.build.json"),
-      insertTypesEntry: true,
+    federation({
+      name: "demo_plugin",
+      filename: "plugin.js",
+      exposes: {
+        "./RemoteARoot": "./src/App.tsx",
+      },
+      shared: ["react", "react-dom", "@green-ecolution/plugin-interface"],
     }),
   ],
-  define: {
-    "process.env.NODE_ENV": '"production"',
-  },
+  base: "",
   build: {
-    lib: {
-      entry: resolve(__dirname, "lib/main.ts"),
-      name: "plugin.js",
-      fileName: (_) => `plugin.js`,
-      formats: ["es"],
-    },
-  },
-});
+    target: 'esnext'
+  }
+})

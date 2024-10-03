@@ -15,7 +15,7 @@ import (
 
 // Embed a single file
 //
-//go:embed ui/dist/*
+//go:embed ui/dist/**/*
 var f embed.FS
 
 var (
@@ -55,7 +55,7 @@ func main() {
 		}
 	}()
 
-	hostPath, err := url.Parse("http://localhost:3000/")
+	hostPath, err := url.Parse("http://localhost:3000")
 	if err != nil {
 		panic(err)
 	}
