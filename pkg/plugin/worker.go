@@ -9,11 +9,11 @@ import (
 )
 
 type PluginWorkerConfig struct {
-	plugin     Plugin
-	host       *url.URL
-	interval   time.Duration
-	client     *http.Client
-  token      *Token
+	plugin   Plugin
+	host     *url.URL
+	interval time.Duration
+	client   *http.Client
+	token    *Token
 }
 
 type PluginWorker struct {
@@ -35,9 +35,9 @@ func WithHost(host *url.URL) PluginWorkerOption {
 }
 
 func WithPlugin(plugin Plugin) PluginWorkerOption {
-  return func(cfg *PluginWorkerConfig) {
-    cfg.plugin = plugin
-  }
+	return func(cfg *PluginWorkerConfig) {
+		cfg.plugin = plugin
+	}
 }
 
 func WithInterval(interval time.Duration) PluginWorkerOption {
@@ -47,13 +47,13 @@ func WithInterval(interval time.Duration) PluginWorkerOption {
 }
 
 func WithToken(token *Token) PluginWorkerOption {
-  return func(cfg *PluginWorkerConfig) {
-    cfg.token = token
-  }
+	return func(cfg *PluginWorkerConfig) {
+		cfg.token = token
+	}
 }
 
 func (c *PluginWorkerConfig) IsValid() bool {
-	return c.host != nil && c.plugin.HostPath != nil && c.interval > 0 && c.client != nil && c.plugin.Name != ""
+	return c.host != nil && c.plugin.PluginHostPath != nil && c.interval > 0 && c.client != nil && c.plugin.Name != ""
 }
 
 var defaultCfg = PluginWorkerConfig{

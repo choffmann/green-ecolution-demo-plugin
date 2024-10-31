@@ -6,6 +6,7 @@ type AuthRequest struct {
 }
 
 type RegisterRequest struct {
+  Slug        string      `json:"slug"`
 	Name        string      `json:"name"`
 	Path        string      `json:"path"`
 	Version     string      `json:"version"`

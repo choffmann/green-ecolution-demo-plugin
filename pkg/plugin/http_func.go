@@ -11,8 +11,9 @@ import (
 
 func (w *PluginWorker) Register(ctx context.Context, username, password string) (*Token, error) {
 	reqBody := RegisterRequest{
+    Slug: w.cfg.plugin.Slug,
 		Name: w.cfg.plugin.Name,
-		Path: w.cfg.plugin.HostPath.String(),
+		Path: w.cfg.plugin.PluginHostPath.String(),
     Version: w.cfg.plugin.Version,
     Description: w.cfg.plugin.Description,
 		Auth: AuthRequest{
@@ -57,7 +58,7 @@ func (w *PluginWorker) Register(ctx context.Context, username, password string) 
 }
 
 func (w *PluginWorker) Heartbeat(ctx context.Context) error {
-	registerPath := fmt.Sprintf("%s://%s/api/v1/plugin/%s/heartbeat", w.cfg.host.Scheme, w.cfg.host.Host, w.cfg.plugin.Name)
+	registerPath := fmt.Sprintf("%s://%s/api/v1/plugin/%s/heartbeat", w.cfg.host.Scheme, w.cfg.host.Host, w.cfg.plugin.Slug)
 	req, err := http.NewRequestWithContext(ctx, http.MethodPost, registerPath, nil)
 	if err != nil {
 		return err

@@ -13,8 +13,6 @@ import (
 	"github.com/choffmann/green-ecolution-demo-plugin/pkg/plugin"
 )
 
-// Embed a single file
-//
 //go:embed ui/dist/**/*
 var f embed.FS
 
@@ -30,10 +28,11 @@ func main() {
 	}
 
 	p := plugin.Plugin{
-		Name:        "demo_plugin",
+		Slug:        "demo_plugin",
+    Name:        "Demo Plugin",
 		Version:     "v1.0.0",
-		Description: "Demo Plugin",
-		HostPath:    pluginPath,
+		Description: "This is a demo plugin for the Green Ecolution platform to showcase the plugin system",
+		PluginHostPath:    pluginPath,
 	}
 
 	http := server.NewServer(
