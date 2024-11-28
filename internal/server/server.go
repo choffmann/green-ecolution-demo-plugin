@@ -5,14 +5,14 @@ import (
 	"embed"
 	"fmt"
 
-	"github.com/choffmann/green-ecolution-demo-plugin/pkg/plugin"
 	"github.com/gofiber/fiber/v2"
+	"github.com/green-ecolution/green-ecolution-backend/pkg/plugin"
 )
 
 type ServerConfig struct {
-	port int
-  plugin plugin.Plugin
-  pluginFS embed.FS
+	port     int
+	plugin   plugin.Plugin
+	pluginFS embed.FS
 }
 
 type Server struct {
@@ -28,15 +28,15 @@ func WithPort(port int) ServerOption {
 }
 
 func WithPluginFS(pluginFS embed.FS) ServerOption {
-  return func(cfg *ServerConfig) {
-    cfg.pluginFS = pluginFS
-  }
+	return func(cfg *ServerConfig) {
+		cfg.pluginFS = pluginFS
+	}
 }
 
 func WithPlugin(plugin plugin.Plugin) ServerOption {
-  return func(cfg *ServerConfig) {
-    cfg.plugin = plugin
-  }
+	return func(cfg *ServerConfig) {
+		cfg.plugin = plugin
+	}
 }
 
 var defaultServerConfig = &ServerConfig{
@@ -55,10 +55,10 @@ func NewServer(opts ...ServerOption) *Server {
 
 func (s *Server) Run(ctx context.Context) error {
 	app := fiber.New(fiber.Config{})
-  app.Get("/", func(c *fiber.Ctx) error {
-    return c.SendString("Hello, World! This is the plugin server for " + s.cfg.plugin.Name)
-  })
-  app.Mount("/", servePlugin(s.cfg.pluginFS))
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.SendString("Hello, World! This is the plugin server for " + s.cfg.plugin.Name)
+	})
+	app.Mount("/", servePlugin(s.cfg.pluginFS))
 
 	go func() {
 		<-ctx.Done()
