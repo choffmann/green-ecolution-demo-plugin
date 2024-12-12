@@ -16,7 +16,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
-//go:embed ui/dist/**/*
+//go:embed all:ui/dist
 var f embed.FS
 
 func main() {
@@ -27,7 +27,7 @@ func main() {
 
 	clientID := os.Getenv("CLIENT_ID")
 	clientSecret := os.Getenv("CLIENT_SECRET")
-  hostPathEnv := os.Getenv("HOST_PATH")
+	hostPathEnv := os.Getenv("HOST_PATH")
 
 	pluginPath, err := url.Parse("http://localhost:8080/")
 	if err != nil {
@@ -35,7 +35,7 @@ func main() {
 	}
 
 	p := plugin.Plugin{
-		Slug:           "demo_plugi",
+		Slug:           "demo_plugin",
 		Name:           "Demo Plugin",
 		Version:        "v1.0.0",
 		Description:    "This is a demo plugin for the Green Ecolution platform to showcase the plugin system",

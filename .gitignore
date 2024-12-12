@@ -2,3 +2,4 @@
 **/node_modules
 **/tsconfig.*.tsbuildinfo
 .env
+ui/.__mf__temp
