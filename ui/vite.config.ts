@@ -7,17 +7,12 @@ export default defineConfig({
   plugins: [
     react(),
     federation({
-      name: "remote",
+      name: "demo_plugin",
       filename: "plugin.js",
       exposes: {
-        "./demo_plugin": "./src/App.tsx",
+        "./app": "./src/App.tsx",
       },
-      shared: {
-        // ...pkg.dependencies,
-        react: { singleton: true },
-        "react-dom": { singleton: true },
-        "@green-ecolution/plugin-interface": { singleton: true },
-      },
+      shared: ["react", "react-dom", "@green-ecolution/plugin-interface"],
     }),
   ],
   base: "",
